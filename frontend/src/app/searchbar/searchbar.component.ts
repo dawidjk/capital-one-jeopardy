@@ -6,7 +6,7 @@ import { ApiService } from '../api/api.service';
 import { Category } from '../models/category';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { SnackbarSearchComponent } from '../snackbar-search/snackbar-search.component';
 
 @Component({
   selector: 'app-searchbar',
@@ -61,7 +61,7 @@ export class SearchbarComponent implements OnInit {
     if (chosen.length > 0) {
       this.router.navigate(['/results', chosen[0].id]);
     } else {
-      this.snackBar.openFromComponent(SnackbarComponent, {
+      this.snackBar.openFromComponent(SnackbarSearchComponent, {
         duration: this.toastDuration * 1000,
       });
     }

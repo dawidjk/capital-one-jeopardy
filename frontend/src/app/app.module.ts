@@ -13,10 +13,10 @@ import { SearchbarComponent } from './searchbar/searchbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RoutingModule } from './router/router.component';
 import { ResultComponent } from './result/result.component';
-import { SnackbarComponent } from './snackbar/snackbar.component';
+import { SnackbarSearchComponent } from './snackbar-search/snackbar-search.component';
 
 @NgModule({
-  declarations: [AppComponent, SearchbarComponent, ResultComponent, SnackbarComponent],
+  declarations: [AppComponent, SearchbarComponent, ResultComponent, SnackbarSearchComponent],
   imports: [
     BrowserModule,
     RoutingModule,
@@ -30,7 +30,7 @@ import { SnackbarComponent } from './snackbar/snackbar.component';
     MatButtonModule,
     MatSnackBarModule
   ],
-  entryComponents: [SnackbarComponent],
+  entryComponents: [SnackbarSearchComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
