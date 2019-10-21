@@ -3,6 +3,7 @@ import { ApiService } from "../api/api.service";
 import { switchMap } from "rxjs/operators"; // RxJS v6
 import { ActivatedRoute } from "@angular/router";
 import { Clue } from "../models/clue";
+import { CardComponent } from '../card/card.component';
 
 @Component({
   selector: "app-result",
@@ -10,7 +11,8 @@ import { Clue } from "../models/clue";
   styleUrls: ["./result.component.scss"]
 })
 export class ResultComponent implements OnInit {
-  clue: Clue;
+  clue: Clue[] = [];
+  currentCard = 0;
   random = true;
   options = {
     offset: 0,
@@ -32,17 +34,32 @@ export class ResultComponent implements OnInit {
     this.drawCard();
   }
 
+  private nextCard() {
+    if (this.currentCard < this.clue.length - 1) {
+      this.currentCard += 1;
+    } else {
+      this.drawCard();
+      this.currentCard += 1;
+    }
+  }
+
+  private prevCard() {
+    if (this.currentCard > 0) {
+      this.currentCard -= 1;
+    }
+  }
+
   private drawCard() {
     if (this.random) {
       this.apiService.getRandom(1).subscribe(clues => {
         clues.forEach(clue => {
-          this.clue = clue;
+          this.clue.push(clue);
         });
       });
     } else {
       this.apiService.getClue(this.options, 1).subscribe(clues => {
         clues.forEach(clue => {
-          this.clue = clue;
+          this.clue.push(clue);
         });
       });
     }

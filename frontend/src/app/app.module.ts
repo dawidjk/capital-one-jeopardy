@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,9 +15,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { RoutingModule } from './router/router.component';
 import { ResultComponent } from './result/result.component';
 import { SnackbarSearchComponent } from './snackbar-search/snackbar-search.component';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
-  declarations: [AppComponent, SearchbarComponent, ResultComponent, SnackbarSearchComponent],
+  declarations: [AppComponent, SearchbarComponent, ResultComponent, SnackbarSearchComponent, CardComponent],
   imports: [
     BrowserModule,
     RoutingModule,
@@ -28,7 +30,8 @@ import { SnackbarSearchComponent } from './snackbar-search/snackbar-search.compo
     MatInputModule,
     MatAutocompleteModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCardModule
   ],
   entryComponents: [SnackbarSearchComponent],
   providers: [],
