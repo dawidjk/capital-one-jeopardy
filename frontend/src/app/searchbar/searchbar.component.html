@@ -1,8 +1,8 @@
-<div>
-  <form>
-    <mat-form-field class="search-width" style="text-align: center;">
-      <input type="text" matInput placeholder="I'll take _______ for 500, Alex" aria-label="category"
-        [formControl]="searchbarController" [matAutocomplete]="auto">
+<div align="center">
+  <form class="search-width" >
+    <mat-form-field class="input-width" style="text-align: center;">
+      <input type="text" matInput placeholder="I'll take _______ for ${{moneyVal}}, Alex" aria-label="category"
+        [formControl]="searchbarController" [matAutocomplete]="auto" #category ng-keyup="$event.keyCode == 13 ? searchCategory(category.value) : null">
 
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
@@ -10,5 +10,8 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
+    <button mat-button (click)="searchCategory(category.value)"><i class="fa fa-search" style="color: white;"></i></button>
   </form>
+
+  <button class="random-adjust" mat-button (click)="randomSearch()"><i class="fa fa-random" style="color: white;"></i></button>
 </div>

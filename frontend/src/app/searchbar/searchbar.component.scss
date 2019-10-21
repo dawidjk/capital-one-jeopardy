@@ -23,13 +23,30 @@
 
 @media only screen and (max-width: 415px) {
     .search-width {
-        width: 30vh;
+        width: 50vh;
         margin-top: 10vh;
+    }
+
+    .input-width {
+      width: 30vh;
+    }
+
+    .random-adjust {
+      float: right;
+      right: 7vh;
     }
   }
   @media only screen and (min-width: 415px) {
     .search-width {
-        width: 50vh;
+        width: 100vh;
         margin-top: 40vh;
+    }
+
+    .input-width {
+      width: 40vh;
+    }
+
+    .random-adjust {
+      right: 2vh;
     }
   }
