@@ -1,5 +1,9 @@
-<p>result works!</p>
-
 <div align="center">
-  <app-card></app-card>
+  <app-card 
+    [category]=clue[currentCard].category.title
+    [difficulty]=clue[currentCard].value
+    [question]=clue[currentCard].question
+    [answer]=clue[currentCard].answer
+    [airdate]=clue[currentCard].airdate
+  ></app-card>
 </div>

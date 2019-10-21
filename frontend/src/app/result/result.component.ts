@@ -53,13 +53,23 @@ export class ResultComponent implements OnInit {
     if (this.random) {
       this.apiService.getRandom(1).subscribe(clues => {
         clues.forEach(clue => {
-          this.clue.push(clue);
+          if (clue.invalid_count > 0) {
+            this.drawCard();
+          } else {
+            clue.airdate = clue.airdate.split('T')[0];
+            this.clue.push(clue);
+          }
         });
       });
     } else {
       this.apiService.getClue(this.options, 1).subscribe(clues => {
         clues.forEach(clue => {
-          this.clue.push(clue);
+          if (clue.invalid_count > 0) {
+            this.drawCard();
+          } else {
+            clue.airdate = clue.airdate.split('T')[0];
+            this.clue.push(clue);
+          }
         });
       });
     }

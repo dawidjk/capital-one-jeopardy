@@ -3,6 +3,8 @@ export class Clue {
     question: string;
     value: number;
     airdate: string;
+    // tslint:disable-next-line: variable-name
+    invalid_count: number;
     category: {
         id: number,
         title: string,
