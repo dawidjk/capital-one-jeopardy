@@ -1,3 +1,36 @@
 <mat-card class="card">
-
+  <mat-card-content>
+    <mat-grid-list cols="2" rowHeight="3:2">
+      <mat-grid-tile [colspan]=1>
+        <span>
+          <h3>Category</h3>
+          <p>{{category}}</p>
+        </span>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]=1>
+        <span>
+          <h3>Difficulty</h3>
+          <p>{{difficulty}}</p>
+        </span>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]=2>
+        <span>
+          <h3>Question</h3>
+          <p>{{question}}</p>
+        </span>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]=1>
+        <span>
+          <h3>Answer</h3>
+          <p>{{answer}}</p>
+        </span>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]=1>
+        <span>
+          <h3>Airdate</h3>
+          <p>{{airdate}}</p>
+        </span>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-content>
 </mat-card>
