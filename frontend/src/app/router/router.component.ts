@@ -6,7 +6,8 @@ import { ResultComponent } from '../result/result.component';
 const routes: Routes = [
   { path: '', component: SearchbarComponent },
   { path: 'search', component: SearchbarComponent },
-  { path: 'results', component: ResultComponent }
+  { path: 'results', component: ResultComponent },
+  { path: 'results/:id', component: ResultComponent }
 ];
 
 @NgModule({

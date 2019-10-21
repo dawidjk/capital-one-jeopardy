@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { map, startWith, filter, debounceTime, finalize } from 'rxjs/operators';
 import { ApiService } from '../api/api.service';
 import { Category } from '../models/category';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 @Component({
   selector: 'app-searchbar',
@@ -18,19 +21,20 @@ export class SearchbarComponent implements OnInit {
   categoryCount = 100;
   totalToLoad = 10;
   moneyVal = Math.floor(Math.random() * 100) * 10;
+  toastDuration = 5;
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService, private router: Router, private snackBar: MatSnackBar) {
     for (; this.categoryOffset < this.totalToLoad; ++this.categoryOffset) {
       this.apiService
-      .getCategories(
-        this.categoryCount,
-        this.categoryOffset * this.categoryCount
-      )
-      .subscribe(categories => {
-        categories.forEach(category => {
-          this.options.push(category);
+        .getCategories(
+          this.categoryCount,
+          this.categoryOffset * this.categoryCount
+        )
+        .subscribe(categories => {
+          categories.forEach(category => {
+            this.options.push(category);
+          });
         });
-      });
     }
   }
 
@@ -48,12 +52,23 @@ export class SearchbarComponent implements OnInit {
   }
 
   searchCategory(category: string) {
-    console.log(category);
+    const filterValue = category.toLowerCase();
+
+    const chosen = this.options.filter(
+      option => option.title.toLowerCase().indexOf(filterValue) === 0
+    );
+
+    if (chosen.length > 0) {
+      this.router.navigate(['/results', chosen[0].id]);
+    } else {
+      this.snackBar.openFromComponent(SnackbarComponent, {
+        duration: this.toastDuration * 1000,
+      });
+    }
   }
 
   randomSearch() {
-    let category = Math.floor(Math.random() * 18000);
-    console.log(category);
+    this.router.navigate(['/results']);
   }
 
   private _filter(name: string): Category[] {
