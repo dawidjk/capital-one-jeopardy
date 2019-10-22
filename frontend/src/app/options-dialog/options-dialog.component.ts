@@ -2,11 +2,13 @@ import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 
 export interface DialogData {
-  offset: number;
-  category: string;
-  value: any;
-  min_date: Date;
-  max_date: Date;
+  options: {
+    offset: number;
+    category: string;
+    value: any;
+    min_date: Date;
+    max_date: Date;
+  };
 }
 
 @Component({
