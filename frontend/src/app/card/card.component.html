@@ -1,35 +1,30 @@
 <mat-card class="card">
   <mat-card-content>
-    <mat-grid-list cols="2" rowHeight="3:2">
-      <mat-grid-tile [colspan]=1>
+    <mat-grid-list cols="2" rowHeight="4:2">
+      <mat-grid-tile [rowspan]=1 [colspan]=2>
+        <div>  
+          <h1>{{category}}</h1>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [rowspan]=2 [colspan]=1 style="top: 1vh;">
+        <div>
+          <h2>Question</h2>
+          <p style="margin-right: 5vh; overflow:scroll;">{{question}}</p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [rowspan]=2 [colspan]=1 style="border-left: 2px solid white;">
         <span>
-          <h3>Category</h3>
-          <span>{{category}}</span>
+          <span style="font-size: 150%"><i>{{answer}}</i></span>
         </span>
       </mat-grid-tile>
-      <mat-grid-tile [colspan]=1>
-        <span>
-          <h3>Difficulty</h3>
-          <span>{{difficulty}}</span>
-        </span>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]=2>
-        <span>
-          <h3>Question</h3>
-          <span>{{question}}</span>
-        </span>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]=1>
-        <span>
-          <h3>Answer</h3>
-          <span>{{answer}}</span>
-        </span>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]=1>
-        <span>
-          <h3>Airdate</h3>
-          <span>{{airdate}}</span>
-        </span>
+      <mat-grid-tile [colspan]=1 style="top: 5vh;">
+          <h1 >For: ${{difficulty}}</h1>
+        </mat-grid-tile>
+      <mat-grid-tile [colspan]=1 style="top: 5vh;">
+          <div style="border-left: 2px solid white; width: 100%">
+            <h1>{{airdate.split('-')[0]}}</h1>
+            <p >{{airdate.split('-')[1]}}-{{airdate.split('-')[2]}}</p>
+          </div>
       </mat-grid-tile>
     </mat-grid-list>
   </mat-card-content>

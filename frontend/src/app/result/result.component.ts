@@ -55,14 +55,22 @@ export class ResultComponent implements OnInit {
     this.clue = [];
   }
 
+  private formatClue(clue: Clue) {
+    clue.answer = clue.answer.replace(/<\/?[^>]+(>|$)/g, '');
+    clue.airdate = clue.airdate.split('T')[0];
+    clue.category.title = clue.category.title.toUpperCase();
+
+    return clue;
+  }
+
   private drawCard() {
     if (this.random) {
       this.apiService.getRandom(1).subscribe(clues => {
         clues.forEach(clue => {
-          if (clue.invalid_count > 0) {
+          if (clue.invalid_count > 0 || clue.category === null || clue.answer.length === 0 || clue.question.length === 0) {
             this.drawCard();
           } else {
-            clue.airdate = clue.airdate.split('T')[0];
+            clue = this.formatClue(clue);
             this.clue.push(clue);
           }
         });
@@ -70,11 +78,10 @@ export class ResultComponent implements OnInit {
     } else {
       this.apiService.getClue(this.options, 1).subscribe(clues => {
         clues.forEach(clue => {
-          if (clue.invalid_count > 0) {
+          if (clue.invalid_count > 0 || clue.category === null || clue.answer.length === 0 || clue.question.length === 0) {
             this.drawCard();
           } else {
-            clue.answer = clue.answer.replace(/<\/?[^>]+(>|$)/g, '');
-            clue.airdate = clue.airdate.split('T')[0];
+            clue = this.formatClue(clue);
             this.clue.push(clue);
           }
         });
