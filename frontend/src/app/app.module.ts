@@ -8,6 +8,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,9 +21,11 @@ import { RoutingModule } from './router/router.component';
 import { ResultComponent } from './result/result.component';
 import { SnackbarSearchComponent } from './snackbar-search/snackbar-search.component';
 import { CardComponent } from './card/card.component';
+import { OptionsDialogComponent } from './options-dialog/options-dialog.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
-  declarations: [AppComponent, SearchbarComponent, ResultComponent, SnackbarSearchComponent, CardComponent],
+  declarations: [AppComponent, SearchbarComponent, ResultComponent, SnackbarSearchComponent, CardComponent, OptionsDialogComponent],
   imports: [
     BrowserModule,
     RoutingModule,
@@ -35,10 +40,14 @@ import { CardComponent } from './card/card.component';
     MatSnackBarModule,
     MatCardModule,
     MatDividerModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  entryComponents: [SnackbarSearchComponent],
-  providers: [],
+  entryComponents: [SnackbarSearchComponent, OptionsDialogComponent],
+  providers: [MatNativeDateModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
