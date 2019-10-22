@@ -1,9 +1,7 @@
 <div align="center">
-  <app-card 
-    [category]=clue[currentCard].category.title
-    [difficulty]=clue[currentCard].value
-    [question]=clue[currentCard].question
-    [answer]=clue[currentCard].answer
-    [airdate]=clue[currentCard].airdate
-  ></app-card>
+  <app-card [category]=clue[currentCard].category.title [difficulty]=clue[currentCard].value
+    [question]=clue[currentCard].question [answer]=clue[currentCard].answer [airdate]=clue[currentCard].airdate>
+  </app-card>
+  <button class="left" mat-button (click)="prevCard()"><i class="fa fa-chevron-left"></i></button>
+  <button class="right" mat-button (click)="nextCard()"><i class="fa fa-chevron-right"></i></button>
 </div>

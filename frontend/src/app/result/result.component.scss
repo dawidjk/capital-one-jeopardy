@@ -1,0 +1,24 @@
+@media only screen and (max-width: 415px) {
+    .left {
+        color: white; 
+        top: 15vh;
+        right: 15vh;
+    }
+
+    .right {
+        color: white; 
+        top: 15vh;
+        left: 15vh;
+    }
+  }
+  @media only screen and (min-width: 415px) {
+    .left {
+        color: white; 
+        right: 20vh;
+    }
+
+    .right {
+        color: white; 
+        left: 20vh;
+    }
+  }
