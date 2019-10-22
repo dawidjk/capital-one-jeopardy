@@ -34,7 +34,8 @@ export class ResultComponent implements OnInit {
     this.drawCard();
   }
 
-  private nextCard() {
+  public nextCard() {
+    console.log('next');
     if (this.currentCard < this.clue.length - 1) {
       this.currentCard += 1;
     } else {
@@ -43,10 +44,15 @@ export class ResultComponent implements OnInit {
     }
   }
 
-  private prevCard() {
+  public prevCard() {
+    console.log('prev');
     if (this.currentCard > 0) {
       this.currentCard -= 1;
     }
+  }
+
+  private resetCard() {
+    this.clue = [];
   }
 
   private drawCard() {
@@ -67,6 +73,7 @@ export class ResultComponent implements OnInit {
           if (clue.invalid_count > 0) {
             this.drawCard();
           } else {
+            clue.answer = clue.answer.replace(/<\/?[^>]+(>|$)/g, '');
             clue.airdate = clue.airdate.split('T')[0];
             this.clue.push(clue);
           }
