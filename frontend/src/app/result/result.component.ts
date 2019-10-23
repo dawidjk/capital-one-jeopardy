@@ -55,18 +55,21 @@ export class ResultComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       const format = 'yyyy-MM-dd';
       const locale = 'en-US';
-      result.options.min_date = formatDate(result.options.min_date, format, locale);
-      result.options.max_date = formatDate(result.options.max_date, format, locale);
-
+      if (result.options.min_date != null) {
+        result.options.min_date = formatDate(result.options.min_date, format, locale);
+      }
+      if (result.options.max_date != null) {
+        result.options.max_date = formatDate(result.options.max_date, format, locale);
+      }
+      
       this.options = result.options;
-      this.resetCard();
       this.random = false;
+      this.resetCard();
     });
   }
 
   public nextCard(): void {
-    console.log('next');
-    if (this.currentCard < this.clue.length - 1) {
+    if (this.currentCard < this.clue.length - 3) {
       this.currentCard += 1;
     } else {
       this.drawCard();
@@ -75,7 +78,6 @@ export class ResultComponent implements OnInit {
   }
 
   public prevCard(): void {
-    console.log('prev');
     if (this.currentCard > 0) {
       this.currentCard -= 1;
     }
@@ -99,6 +101,7 @@ export class ResultComponent implements OnInit {
       this.apiService.getRandom(1).subscribe(clues => {
         clues.forEach(clue => {
           if (
+            clue.invalid_count !== null ||
             clue.invalid_count > 0 ||
             clue.category === null ||
             clue.answer.length === 0 ||
@@ -112,9 +115,11 @@ export class ResultComponent implements OnInit {
         });
       });
     } else {
+      this.options.offset += 1;
       this.apiService.getClue(this.options, 1).subscribe(clues => {
         clues.forEach(clue => {
           if (
+            clue.invalid_count !== null ||
             clue.invalid_count > 0 ||
             clue.category === null ||
             clue.answer.length === 0 ||
