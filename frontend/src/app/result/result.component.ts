@@ -9,6 +9,7 @@ import { LOCAL_STORAGE, StorageService } from "ngx-webstorage-service";
 import { LocalStorageService } from "../services/local-storage.service";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarNoFavoritesomponent } from '../snackbar-no-favorites/snackbar-no-favorites.component';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: "app-result",
@@ -21,6 +22,7 @@ export class ResultComponent implements OnInit {
   favoritesKey = "favorites";
   currentCard = 0;
   loadedFavorite = false;
+  lastClueCount = -1;
   random = true;
   options = {
     offset: 0,
@@ -36,7 +38,8 @@ export class ResultComponent implements OnInit {
     private apiService: ApiService,
     private route: ActivatedRoute,
     private localStorageService: LocalStorageService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private cRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -54,7 +57,6 @@ export class ResultComponent implements OnInit {
   }
 
   public toggleFavorite() {
-
     if (this.isFavorite()) {
       this.removeFavorite();
     } else {
@@ -79,6 +81,17 @@ export class ResultComponent implements OnInit {
 
     if (index > -1) {
       this.favorites.splice(index, 1);
+
+      if (this.loadedFavorite) {
+        this.clue = this.favorites;
+        if (this.currentCard >= this.clue.length) {
+          this.currentCard = this.clue.length - 1;
+        }
+
+        if (this.favorites.length === 0) {
+          this.exitFavorites();
+        }
+      }
     }
 
     this.localStorageService.addFavorite(this.favorites, this.favoritesKey);
@@ -86,8 +99,7 @@ export class ResultComponent implements OnInit {
 
   public loadFavorites() {
     this.favorites = this.localStorageService.getFavorites(this.favoritesKey);
-    console.log(this.favorites);
-    this.loadedFavorite = true;
+
     if (this.favorites.length === 0) {
       this.snackBar.openFromComponent(SnackbarNoFavoritesomponent, {
         duration: this.toastDuration * 1000,
@@ -95,6 +107,8 @@ export class ResultComponent implements OnInit {
     } else {
       this.clue = [];
       this.clue = this.favorites;
+      this.loadedFavorite = true;
+      this.currentCard = 0;
     }
   }
 
@@ -134,23 +148,30 @@ export class ResultComponent implements OnInit {
   }
 
   public nextCard(): void {
-  if (this.currentCard < this.clue.length - 3 || (this.loadedFavorite && this.currentCard < this.clue.length - 1)) {
-      this.currentCard += 1;
-    } else if (!this.loadedFavorite) {
+    if (!this.loadedFavorite) {
       this.drawCard();
-      this.currentCard += 1;
     }
+    this.currentCard += 1;
+    let clueMod = 1;
+    if (this.clue.length === this.lastClueCount) {
+      clueMod = 0;
+    }
+    this.currentCard %= this.clue.length + clueMod;
+    this.lastClueCount = this.clue.length;
   }
 
   public prevCard(): void {
     if (this.currentCard > 0) {
       this.currentCard -= 1;
+    } else if (this.currentCard === 0) {
+      this.currentCard = this.clue.length - 1;
     }
   }
 
   private resetCard(): void {
     this.clue = [];
     this.drawCard();
+    this.cRef.detectChanges();
   }
 
   private formatClue(clue: Clue): Clue {
@@ -180,22 +201,28 @@ export class ResultComponent implements OnInit {
         });
       });
     } else {
-      this.options.offset += 1;
       this.apiService.getClue(this.options, 1).subscribe(clues => {
-        clues.forEach(clue => {
-          if (
-            clue.invalid_count !== null ||
-            clue.invalid_count > 0 ||
-            clue.category === null ||
-            clue.answer.length === 0 ||
-            clue.question.length === 0
-          ) {
-            this.drawCard();
-          } else {
-            clue = this.formatClue(clue);
-            this.clue.push(clue);
-          }
-        });
+        if (clues.length === 0) {
+          return;
+        }
+        this.options.offset += 1;
+        if (
+          clues[0].invalid_count !== null ||
+          clues[0].invalid_count > 0 ||
+          clues[0].category === null ||
+          clues[0].answer.length === 0 ||
+          clues[0].question.length === 0
+        ) {
+          this.drawCard();
+        } else {
+          this.clue.forEach(element => {
+            if (element.category.id === clues[0].category.id) {
+              return;
+            }
+          });
+          clues[0] = this.formatClue(clues[0]);
+          this.clue.push(clues[0]);
+        }
       });
     }
   }

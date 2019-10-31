@@ -6,10 +6,10 @@
     <button class="left" mat-button (click)="prevCard()"><i class="fa fa-chevron-left"></i></button>
     <button mat-button class="mid" (click)="settings()"><i class="fa fa-bars" style="color: white;"
         aria-hidden="true"></i></button>
-    <button mat-button class="mid" (click)="toggleFavorite()"><i class="fa fa-star"
-        [ngStyle]="isFavorite() ? {'color': 'yellow'} : {'color': 'white'}" aria-hidden="true"></i></button>
+    <!-- <button mat-button class="mid" (click)="toggleFavorite()"><i class="fa fa-star"
+        [ngStyle]="isFavorite() ? {'color': 'yellow'} : {'color': 'white'}" aria-hidden="true"></i></button> -->
     <button class="right" mat-button (click)="nextCard()"><i class="fa fa-chevron-right"></i></button>
   </div>
-  <button *ngIf="!loadedFavorite" class="bottom" mat-button (click)="loadFavorites()">Favorites</button>
-  <button *ngIf="loadedFavorite" class="bottom" mat-button (click)="exitFavorites()">Exit Favorites</button>
+  <!-- <button *ngIf="!loadedFavorite" class="bottom" mat-button (click)="loadFavorites()">Favorites</button>
+  <button *ngIf="loadedFavorite" class="bottom" mat-button (click)="exitFavorites()">Exit Favorites</button> -->
 </div>

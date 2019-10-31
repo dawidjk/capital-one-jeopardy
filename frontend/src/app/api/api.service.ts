@@ -7,7 +7,7 @@ import { Clue } from '../models/clue';
   providedIn: 'root'
 })
 export class ApiService {
-  apiURL = 'http://jservice.io';
+  apiURL = 'https://cors-anywhere.herokuapp.com/http://jservice.io';
 
   constructor(private httpClient: HttpClient) {}
 
