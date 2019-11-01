@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Clue } from '../models/clue';
 
 @Component({
   selector: 'app-card',
@@ -6,9 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent {
-  @Input() category: string;
-  @Input() difficulty: number;
-  @Input() question: string;
-  @Input() answer: string;
-  @Input() airdate: string;
+  @Input() clue: Clue;
 }

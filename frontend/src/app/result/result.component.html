@@ -1,6 +1,5 @@
 <div align="center">
-  <app-card [category]=clue[currentCard].category.title [difficulty]=clue[currentCard].value
-    [question]=clue[currentCard].question [answer]=clue[currentCard].answer [airdate]=clue[currentCard].airdate>
+  <app-card [clue]=clue[currentCard]>
   </app-card>
   <div>
     <button class="left" mat-button (click)="prevCard()"><i class="fa fa-chevron-left"></i></button>
