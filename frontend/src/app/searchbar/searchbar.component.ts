@@ -19,7 +19,7 @@ export class SearchbarComponent implements OnInit {
   filteredOptions: Observable<Category[]>;
   categoryOffset = 0;
   categoryCount = 100;
-  totalToLoad = 10;
+  totalToLoad = 50;
   moneyVal = Math.floor(Math.random() * 100) * 10;
   toastDuration = 5;
 

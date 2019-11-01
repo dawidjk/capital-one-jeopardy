@@ -24,6 +24,7 @@ export class ResultComponent implements OnInit {
   loadedFavorite = false;
   lastClueCount = -1;
   random = true;
+  noCardsLeft = false;
   options = {
     offset: 0,
     category: null,
@@ -200,9 +201,14 @@ export class ResultComponent implements OnInit {
           }
         });
       });
-    } else {
+    } else if (!this.noCardsLeft) {
       this.apiService.getClue(this.options, 1).subscribe(clues => {
         if (clues.length === 0) {
+          if (this.currentCard >= this.clue.length) {
+            this.currentCard = 0;
+          }
+
+          this.noCardsLeft = true;
           return;
         }
         this.options.offset += 1;
