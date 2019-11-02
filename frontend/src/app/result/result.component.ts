@@ -7,9 +7,9 @@ import { OptionsDialogComponent } from "../options-dialog/options-dialog.compone
 import { formatDate } from "@angular/common";
 import { LOCAL_STORAGE, StorageService } from "ngx-webstorage-service";
 import { LocalStorageService } from "../services/local-storage.service";
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackbarNoFavoritesomponent } from '../snackbar-no-favorites/snackbar-no-favorites.component';
-import { ChangeDetectorRef } from '@angular/core';
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { SnackbarNoFavoritesomponent } from "../snackbar-no-favorites/snackbar-no-favorites.component";
+import { ChangeDetectorRef } from "@angular/core";
 
 @Component({
   selector: "app-result",
@@ -103,7 +103,7 @@ export class ResultComponent implements OnInit {
 
     if (this.favorites.length === 0) {
       this.snackBar.openFromComponent(SnackbarNoFavoritesomponent, {
-        duration: this.toastDuration * 1000,
+        duration: this.toastDuration * 1000
       });
     } else {
       this.clue = [];
@@ -202,7 +202,7 @@ export class ResultComponent implements OnInit {
         });
       });
     } else if (!this.noCardsLeft) {
-      this.apiService.getClue(this.options, 1).subscribe(clues => {
+      this.apiService.getClue(this.options).subscribe(clues => {
         if (clues.length === 0) {
           if (this.currentCard >= this.clue.length) {
             this.currentCard = 0;
@@ -211,23 +211,25 @@ export class ResultComponent implements OnInit {
           this.noCardsLeft = true;
           return;
         }
-        this.options.offset += 1;
-        if (
-          clues[0].invalid_count !== null ||
-          clues[0].invalid_count > 0 ||
-          clues[0].category === null ||
-          clues[0].answer.length === 0 ||
-          clues[0].question.length === 0
-        ) {
-          this.drawCard();
-        } else {
-          this.clue.forEach(element => {
-            if (element.category.id === clues[0].category.id) {
-              return;
-            }
-          });
-          clues[0] = this.formatClue(clues[0]);
-          this.clue.push(clues[0]);
+        for (let i = 0; i < clues.length; ++i) {
+          this.options.offset += 1;
+          if (
+            clues[i].invalid_count !== null ||
+            clues[i].invalid_count > 0 ||
+            clues[i].category === null ||
+            clues[i].answer.length === 0 ||
+            clues[i].question.length === 0
+          ) {
+            this.drawCard();
+          } else {
+            this.clue.forEach(element => {
+              if (element.category.id === clues[i].category.id) {
+                return;
+              }
+            });
+            clues[i] = this.formatClue(clues[i]);
+            this.clue.push(clues[i]);
+          }
         }
       });
     }

@@ -23,7 +23,7 @@ export class ApiService {
     );
   }
 
-  public getClue(options: any, offset: number) {
+  public getClue(options: any) {
     let url = `${this.apiURL}/api/clues?`;
     let total = 0;
     // tslint:disable-next-line: forin
