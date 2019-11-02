@@ -137,6 +137,8 @@ export class ResultComponent implements OnInit {
           format,
           locale
         );
+      } else if (result.options.max_date != null) {
+        result.options.min_date = '1964-01-01';
       }
       if (result.options.max_date != null) {
         result.options.max_date = formatDate(
@@ -144,6 +146,13 @@ export class ResultComponent implements OnInit {
           format,
           locale
         );
+      } else if (result.options.min_date != null) {
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear();
+
+        result.options.max_date = yyyy + '-' + mm + '-' + dd;
       }
 
       this.options = result.options;
