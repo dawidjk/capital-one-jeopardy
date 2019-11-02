@@ -1,25 +1,25 @@
-import { Component, OnInit, Injectable } from "@angular/core";
-import { ApiService } from "../api/api.service";
-import { ActivatedRoute } from "@angular/router";
-import { Clue } from "../models/clue";
-import { MatDialog } from "@angular/material/dialog";
-import { OptionsDialogComponent } from "../options-dialog/options-dialog.component";
-import { formatDate } from "@angular/common";
-import { LOCAL_STORAGE, StorageService } from "ngx-webstorage-service";
-import { LocalStorageService } from "../services/local-storage.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { SnackbarNoFavoritesomponent } from "../snackbar-no-favorites/snackbar-no-favorites.component";
-import { ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, Injectable } from '@angular/core';
+import { ApiService } from '../api/api.service';
+import { ActivatedRoute } from '@angular/router';
+import { Clue } from '../models/clue';
+import { MatDialog } from '@angular/material/dialog';
+import { OptionsDialogComponent } from '../options-dialog/options-dialog.component';
+import { formatDate } from '@angular/common';
+import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { LocalStorageService } from '../services/local-storage.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarNoFavoritesomponent } from '../snackbar-no-favorites/snackbar-no-favorites.component';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
-  selector: "app-result",
-  templateUrl: "./result.component.html",
-  styleUrls: ["./result.component.scss"]
+  selector: 'app-result',
+  templateUrl: './result.component.html',
+  styleUrls: ['./result.component.scss']
 })
 export class ResultComponent implements OnInit {
   clue: Clue[] = [];
   favorites: Clue[] = [];
-  favoritesKey = "favorites";
+  favoritesKey = 'favorites';
   currentCard = 0;
   loadedFavorite = false;
   lastClueCount = -1;
@@ -44,10 +44,10 @@ export class ResultComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.route.snapshot.paramMap.has("id")) {
+    if (this.route.snapshot.paramMap.has('id')) {
       this.random = false;
       this.options.category = parseInt(
-        this.route.snapshot.paramMap.get("id"),
+        this.route.snapshot.paramMap.get('id'),
         10
       );
     } else {
@@ -120,13 +120,17 @@ export class ResultComponent implements OnInit {
 
   public settings() {
     const dialogRef = this.dialog.open(OptionsDialogComponent, {
-      width: "350px",
+      width: '350px',
       data: { options: this.options }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      const format = "yyyy-MM-dd";
-      const locale = "en-US";
+      if (result === undefined) {
+        return;
+      }
+
+      const format = 'yyyy-MM-dd';
+      const locale = 'en-US';
       if (result.options.min_date != null) {
         result.options.min_date = formatDate(
           result.options.min_date,
@@ -143,6 +147,8 @@ export class ResultComponent implements OnInit {
       }
 
       this.options = result.options;
+      this.options.offset = 0;
+      this.noCardsLeft = false;
       this.random = false;
       this.resetCard();
     });
@@ -171,13 +177,14 @@ export class ResultComponent implements OnInit {
 
   private resetCard(): void {
     this.clue = [];
+    this.currentCard = 0;
     this.drawCard();
     this.cRef.detectChanges();
   }
 
   private formatClue(clue: Clue): Clue {
-    clue.answer = clue.answer.replace(/<\/?[^>]+(>|$)/g, "");
-    clue.airdate = clue.airdate.split("T")[0];
+    clue.answer = clue.answer.replace(/<\/?[^>]+(>|$)/g, '');
+    clue.airdate = clue.airdate.split('T')[0];
     clue.category.title = clue.category.title.toUpperCase();
 
     return clue;
