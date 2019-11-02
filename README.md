@@ -9,5 +9,7 @@ This is my submission to Capital One's Mind Sumo competition for the Winter Summ
 
 # Tech Stack
 Angular
+
 Angular Material
+
 Ruby on Rails (http://jservice.io)
