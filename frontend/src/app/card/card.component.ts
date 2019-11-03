@@ -11,8 +11,6 @@ export class CardComponent implements OnInit {
   isMobile = false;
 
   ngOnInit() {
-    if (window.screen.width === 360) { // 768px portrait
-      this.isMobile = true;
-    }
+    this.isMobile = /Android|iPhone/i.test(window.navigator.userAgent);
   }
 }
