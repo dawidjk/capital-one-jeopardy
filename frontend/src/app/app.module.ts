@@ -25,6 +25,8 @@ import { CardComponent } from "./card/card.component";
 import { OptionsDialogComponent } from "./options-dialog/options-dialog.component";
 import { MatNativeDateModule } from "@angular/material/core";
 import { LocalStorageService } from "./services/local-storage.service";
+import { HammerJSConfig } from './hammer/hammer-jsconfig';
+import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,10 @@ import { LocalStorageService } from "./services/local-storage.service";
     OptionsDialogComponent,
     SnackbarNoFavoritesomponent
   ],
-  providers: [MatNativeDateModule, LocalStorageService],
+  providers: [MatNativeDateModule, LocalStorageService, { 
+    provide: HAMMER_GESTURE_CONFIG,
+    useClass: HammerJSConfig,
+}],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

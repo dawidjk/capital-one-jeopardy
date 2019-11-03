@@ -33,6 +33,7 @@ export class ResultComponent implements OnInit {
     max_date: null
   };
   toastDuration = 3;
+  SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
 
   constructor(
     public dialog: MatDialog,
@@ -56,6 +57,16 @@ export class ResultComponent implements OnInit {
     this.drawCard();
     this.favorites = this.localStorageService.getFavorites(this.favoritesKey);
   }
+
+  swipe(action = this.SWIPE_ACTION.RIGHT) {
+    if (action === this.SWIPE_ACTION.LEFT) {
+      this.nextCard();
+    }
+
+    if (action === this.SWIPE_ACTION.RIGHT) {
+      this.prevCard();
+    }
+}
 
   public toggleFavorite() {
     if (this.isFavorite()) {
