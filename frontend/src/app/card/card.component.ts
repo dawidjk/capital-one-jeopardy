@@ -8,6 +8,7 @@ import { Clue } from '../models/clue';
 })
 export class CardComponent implements OnInit {
   @Input() clue: Clue;
+  @Input() empty: boolean;
   isMobile = false;
 
   ngOnInit() {

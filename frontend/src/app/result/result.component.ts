@@ -242,10 +242,10 @@ export class ResultComponent implements OnInit {
           this.options.offset += 1;
           if (
             clues[i].invalid_count !== null ||
-            clues[i].invalid_count > 0 ||
             clues[i].category === null ||
             clues[i].answer.length === 0 ||
-            clues[i].question.length === 0
+            clues[i].question.length === 0 ||
+            clues[i].value === 0
           ) {
             this.drawCard();
           } else {

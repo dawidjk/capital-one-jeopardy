@@ -1,35 +1,43 @@
 <mat-card class="card">
-  <mat-card-content>
-    <mat-grid-list cols="2" rowHeight="{{isMobile ? '4:2' : '4:2'}}">
-      <mat-grid-tile [rowspan]='isMobile ? 2 : 1' [colspan]="2">
-        <div *ngIf='clue != undefined'>  
-          <h1>{{clue.category.title}}</h1>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [rowspan]='isMobile ? 3 : 1' [colspan]=1 style="top: 1vh;">
-        <div *ngIf='clue != undefined' style="margin-right: 2vw; ">
-          <h2>Question</h2>
-          <p style="overflow:scroll;">{{clue.question}}</p>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [rowspan]='isMobile ? 3 : 1' [colspan]=1 style="border-left: 2px solid white;">
-        <div *ngIf='clue != undefined'>
-          <span>
-            <h2><i>{{clue.answer}}</i></h2>
-          </span>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]=1 style="top: 5vh;">
-        <div *ngIf='clue != undefined'>
-          <h1 >For: ${{clue.value}}</h1>
+  <div *ngIf='clue == undefined && !empty'>
+    <mat-spinner></mat-spinner>
+  </div>
+  <div *ngIf='clue != undefined || empty'>
+    <mat-card-content>
+      <mat-grid-list cols="2" rowHeight="{{isMobile ? '4:2' : '4:2'}}">
+        <mat-grid-tile [rowspan]='isMobile ? 2 : 1' [colspan]="2">
+          <div *ngIf='clue != undefined'>
+            <h1>{{clue.category.title}}</h1>
+          </div>
+          <div *ngIf='empty'>
+            <h1>No Results Found</h1>
           </div>
         </mat-grid-tile>
-      <mat-grid-tile [colspan]=1 style="top: 5vh;">
+        <mat-grid-tile [rowspan]='isMobile ? 3 : 1' [colspan]=1 style="top: 1vh;">
+          <div *ngIf='clue != undefined' style="margin-right: 2vw; ">
+            <h2>Question</h2>
+            <p style="overflow:scroll;">{{clue.question}}</p>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]='isMobile ? 3 : 1' [colspan]=1 style="border-left: 2px solid white;">
+          <div *ngIf='clue != undefined'>
+            <span>
+              <h2><i>{{clue.answer}}</i></h2>
+            </span>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]=1 style="top: 5vh;">
+          <div *ngIf='clue != undefined'>
+            <h1>For: ${{clue.value}}</h1>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]=1 style="top: 5vh;">
           <div style="border-left: 2px solid white; width: 100%" *ngIf='clue != undefined'>
             <h1>{{clue.airdate.split('-')[0]}}</h1>
-            <p >{{clue.airdate.split('-')[1]}}-{{clue.airdate.split('-')[2]}}</p>
+            <p>{{clue.airdate.split('-')[1]}}-{{clue.airdate.split('-')[2]}}</p>
           </div>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </mat-card-content>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </div>
 </mat-card>

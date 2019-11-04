@@ -1,5 +1,5 @@
 <div align="center" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
-  <app-card [clue]=clue[currentCard]>
+  <app-card [clue]=clue[currentCard] [empty]='clue.length === 0'>
   </app-card>
   <div>
     <button class="left" mat-button (click)="prevCard()"><i class="fa fa-chevron-left"></i></button>
