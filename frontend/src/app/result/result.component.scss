@@ -2,13 +2,13 @@
     .left {
         color: white; 
         bottom: 5vh;
-        right: 5vh;
+        right: 5vw;
     }
 
     .right {
         color: white; 
         bottom: 5vh;
-        left: 5vh;
+        left: 5vw;
     }
 
     .mid {
@@ -23,12 +23,12 @@
   @media only screen and (min-width: 415px) {
     .left {
         color: white; 
-        right: 20vh;
+        right: 10vw;
     }
 
     .right {
         color: white; 
-        left: 20vh;
+        left: 10vw;
     }
 
     .mid {

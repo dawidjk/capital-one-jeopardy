@@ -1,19 +1,18 @@
 <mat-card class="card">
   <mat-card-content>
-    <mat-grid-list cols="2" rowHeight="{{isMobile ? '3:2' : '4:2'}}">
-      <mat-grid-tile [rowspan]="1" [colspan]="2">
+    <mat-grid-list cols="2" rowHeight="{{isMobile ? '4:2' : '4:2'}}">
+      <mat-grid-tile [rowspan]='isMobile ? 2 : 1' [colspan]="2">
         <div *ngIf='clue != undefined'>  
-          <h1 *ngIf='!isMobile'>{{clue.category.title}}</h1>
-          <h2 *ngIf='isMobile'>{{clue.category.title}}</h2>
+          <h1>{{clue.category.title}}</h1>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile [rowspan]='isMobile ? 3 : 2' [colspan]=1 style="top: 1vh;">
-        <div *ngIf='clue != undefined' style="margin-right: 2vh; ">
+      <mat-grid-tile [rowspan]='isMobile ? 3 : 1' [colspan]=1 style="top: 1vh;">
+        <div *ngIf='clue != undefined' style="margin-right: 2vw; ">
           <h2>Question</h2>
           <p style="overflow:scroll;">{{clue.question}}</p>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile [rowspan]='isMobile ? 3 : 2' [colspan]=1 style="border-left: 2px solid white;">
+      <mat-grid-tile [rowspan]='isMobile ? 3 : 1' [colspan]=1 style="border-left: 2px solid white;">
         <div *ngIf='clue != undefined'>
           <span>
             <h2><i>{{clue.answer}}</i></h2>
