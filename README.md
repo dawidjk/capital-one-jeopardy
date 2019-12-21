@@ -1,5 +1,5 @@
 # Capital One Jeopardy Search Engine Competition
-  - www.dawidjk.github.io/jeopardy
+  - https://dawidjk.github.io/jeopardy/
 #### Design goals:
   - Create a search engine for a Jeopardy API
   - Allow users to query by different question attributes
